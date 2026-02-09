@@ -1,20 +1,24 @@
 # 🎓 DSA & Python Tutor Agent
 
-A **Student-Focused DSA Tutor** built with Flask and Groq API that teaches Data Structures & Algorithms using a pedagogical, step-by-step approach.
+A **Student-Focused DSA Tutor** built with **Google ADK (Agent Development Kit)**, Flask, and Groq/Gemini APIs that teaches Data Structures & Algorithms using a pedagogical, step-by-step approach.
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![Google ADK](https://img.shields.io/badge/Google-ADK-4285F4.svg)
 ![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)
+![Gemini](https://img.shields.io/badge/LLM-Gemini-purple.svg)
 ![Groq](https://img.shields.io/badge/LLM-Groq-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## ✨ Features
 
+- **Google ADK Framework** - Built using Google's Agent Development Kit
 - **Pedagogical Teaching Approach** - Follows an 8-step workflow to teach, not just answer
 - **LeetCode-Style Problems** - Designed for interview preparation (Easy → Medium)
 - **Python Focused** - All solutions in clean, beginner-friendly Python
+- **Dual Backend Support** - Run with Gemini (ADK Web) or Groq (Flask)
+- **Custom DSA Tools** - explain_dsa_concept, analyze_complexity, get_leetcode_hints
 - **Modern Dark UI** - Beautiful, responsive chat interface
 - **Code Highlighting** - Syntax highlighting with copy functionality
-- **Conversation Memory** - Maintains context across the session
 
 ## 📸 Screenshots
 
@@ -71,23 +75,51 @@ A **Student-Focused DSA Tutor** built with Flask and Groq API that teaches Data 
 
 ```
 Student-tutor/
+├── agent.py                 # 🆕 Google ADK agent entry point
 ├── agents/
 │   ├── __init__.py
-│   └── tutor_agent.py      # Core DSA Tutor with Groq API
+│   ├── tutor_agent.py       # Groq-based tutor (Flask backend)
+│   └── dsa_tools.py         # 🆕 ADK tools for DSA tutoring
 ├── app/
 │   ├── __init__.py
-│   ├── main.py             # Flask app factory
-│   └── routes.py           # API endpoints
+│   ├── main.py              # Flask app factory
+│   └── routes.py            # API endpoints
 ├── templates/
-│   └── index.html          # Modern dark-theme UI
+│   └── index.html           # Modern dark-theme UI
 ├── tests/
-│   └── test_agent.py       # Agent tests
-├── .env                    # Environment variables (not in git)
+│   └── test_agent.py        # Agent tests
+├── .env                     # Environment variables (not in git)
 ├── .gitignore
 ├── requirements.txt
-├── run.py                  # Entry point
+├── run.py                   # Flask entry point
 └── README.md
 ```
+
+## 🚀 Two Ways to Run
+
+### Option 1: Google ADK Web UI (Recommended)
+
+```bash
+# Set your Google API key
+set GOOGLE_API_KEY=your_gemini_api_key
+
+# Run with ADK
+adk web
+```
+Open http://localhost:8000 in your browser.
+
+### Option 2: Flask UI (Groq Backend)
+
+```bash
+python run.py
+```
+Open http://127.0.0.1:5001 in your browser.
+
+| Feature | ADK Web | Flask UI |
+|---------|---------|----------|
+| Model | Gemini 2.0 Flash | Llama 3.1 (Groq) |
+| Tools | ✅ DSA Tools | ❌ |
+| UI | ADK Default | Custom Dark Theme |
 
 ## 📚 Teaching Workflow
 
