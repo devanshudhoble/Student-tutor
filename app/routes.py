@@ -1,12 +1,19 @@
+"""
+Flask Routes for DSA Tutor
+Uses Groq-based tutor agent with Google ADK framework structure.
+"""
+
 from flask import Blueprint, render_template, request, session, jsonify
-from agents.tutor_agent import tutor_agent, list_models
+from agents.tutor_agent import tutor_agent
 import json
 
 main_routes = Blueprint("main_routes", __name__)
 
+
 @main_routes.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
+
 
 @main_routes.route("/chat", methods=["POST"])
 def chat():
@@ -41,7 +48,8 @@ def chat():
         
         return jsonify({
             "response": response,
-            "history_length": len(chat_history)
+            "history_length": len(chat_history),
+            "backend": "Groq/Llama"
         })
     
     except Exception as e:
@@ -50,6 +58,7 @@ def chat():
             "error": f"Server error: {str(e)}",
             "response": "❌ Sorry, I encountered a server error. Please try again or refresh the page."
         }), 500
+
 
 @main_routes.route("/clear", methods=["POST"])
 def clear_chat():
@@ -61,12 +70,11 @@ def clear_chat():
         return jsonify({"error": str(e)}), 500
 
 
-@main_routes.route("/debug_models", methods=["GET"])
-def debug_models():
-    """Return available models from Gemini client for debugging."""
-    try:
-        models = list_models()
-        return jsonify(models)
-    except Exception as e:
-        print(f"[ERROR] debug_models error: {e}")
-        return jsonify({"error": str(e)}), 500
+@main_routes.route("/status", methods=["GET"])
+def status():
+    """Check backend status."""
+    return jsonify({
+        "backend": "Groq/Llama",
+        "framework": "Google ADK (structure)",
+        "status": "ok"
+    })
