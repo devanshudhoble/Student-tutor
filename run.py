@@ -12,8 +12,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# --- Google ADK Imports (Agent Framework) ---
-from google.adk import Agent
+# --- Google ADK Framework (loaded lazily to avoid slow startup) ---
+# ADK Agent is defined in agent.py and can be run via `adk web`
+# For Flask, we use the lightweight DSA tools directly
 from agents.dsa_tools import explain_dsa_concept, analyze_complexity, get_leetcode_hints
 
 # --- Flask App Setup ---
@@ -73,3 +74,4 @@ if __name__ == "__main__":
     print("Tools: explain_dsa_concept, analyze_complexity, get_leetcode_hints")
     print("URL: http://127.0.0.1:5001\n")
     app.run(host="127.0.0.1", port=5001, debug=False, use_reloader=False)
+
